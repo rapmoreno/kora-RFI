@@ -1,0 +1,27 @@
+/*
+ * Module: main.css
+ * Type: CSS Entry Point
+ * Purpose: Import all CSS in correct cascade order
+ *
+ * Depends on: all CSS files
+ * Used by: index.html
+ * Side effects: None
+ *
+ * ORDER MATTERS. Do not rearrange imports.
+ */
+
+/* Atoms */
+@import './atoms/tokens.css';
+@import './atoms/tokens-semantic.css';
+@import './atoms/base.css';
+
+/* Overrides */
+@import './tailwind-overrides.css';
+
+/* Molecules */
+/* @import './molecules/button.css'; */
+
+/* Organisms */
+@import './organisms/app-avatar.css';
+@import './organisms/app-chat-status.css';
+@import './organisms/app-chat-input.css';

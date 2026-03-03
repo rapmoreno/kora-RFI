@@ -1,0 +1,15 @@
+/*
+ * Module: tailwind-overrides.css
+ * Type: Override quarantine
+ * Purpose: Tailwind customizations that cannot be solved in tailwind.config.js
+ *
+ * Depends on: Tailwind CDN
+ * Used by: main.css
+ * Side effects: None
+ *
+ * RULE: Solve in tailwind.config.js first. Only use this file as last resort.
+ *
+ * Example valid use case:
+ * .prose img { border-radius: var(--radius-md); }
+ * — When Tailwind's prose plugin applies defaults you can't override via config.
+ */

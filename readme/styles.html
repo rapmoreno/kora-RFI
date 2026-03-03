@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Style Guide</title>
+  <link rel="stylesheet" href="../styles/reset.css">
+  <link rel="stylesheet" href="../styles/atoms/tokens.css">
+  <link rel="stylesheet" href="../styles/atoms/tokens-semantic.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lucide-static@latest/font/lucide.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: var(--font-family-base);
+      font-size: var(--font-size-base);
+      color: var(--text-primary);
+      background-color: var(--bg-page);
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    h1 { font-size: var(--font-size-3xl); margin-bottom: 0.5rem; }
+    h2 { font-size: var(--font-size-2xl); margin-top: 2.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
+    h3 { font-size: var(--font-size-lg); margin-top: 1.5rem; margin-bottom: 0.75rem; }
+    p.subtitle { color: var(--text-secondary); margin-bottom: 2rem; }
+
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      cursor: pointer;
+      font-family: var(--font-family-base);
+      font-size: var(--font-size-sm);
+    }
+
+    .swatch-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .swatch {
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .swatch-color {
+      height: 64px;
+      width: 100%;
+    }
+
+    .swatch-label {
+      padding: 0.5rem;
+      font-size: var(--font-size-xs);
+      background: var(--bg-surface);
+    }
+
+    .swatch-label code {
+      display: block;
+      font-family: var(--font-family-mono);
+      font-size: var(--font-size-xs);
+      color: var(--text-secondary);
+      margin-top: 0.125rem;
+    }
+
+    .status-row {
+      display: grid;
+      grid-template-columns: 80px 1fr 1fr 1fr;
+      gap: 0.75rem;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .status-label {
+      font-size: var(--font-size-sm);
+      font-weight: 600;
+      text-transform: capitalize;
+    }
+
+    .status-swatch {
+      height: 48px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: var(--font-size-xs);
+      font-family: var(--font-family-mono);
+    }
+
+    .font-sample {
+      margin-bottom: 1.5rem;
+      padding: 1rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+    }
+
+    .font-sample-name {
+      font-size: var(--font-size-sm);
+      color: var(--text-secondary);
+      margin-bottom: 0.25rem;
+      font-family: var(--font-family-mono);
+    }
+
+    .font-sample-text {
+      font-size: var(--font-size-2xl);
+    }
+
+    .type-scale {
+      margin-bottom: 1.5rem;
+    }
+
+    .type-scale-row {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--bg-surface);
+    }
+
+    .type-scale-label {
+      min-width: 120px;
+      font-size: var(--font-size-xs);
+      font-family: var(--font-family-mono);
+      color: var(--text-secondary);
+    }
+
+    .spacing-grid {
+      display: flex;
+      align-items: flex-end;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .spacing-item {
+      text-align: center;
+    }
+
+    .spacing-box {
+      background: var(--primary-base);
+      border-radius: var(--radius-sm);
+    }
+
+    .spacing-item code {
+      display: block;
+      font-size: var(--font-size-xs);
+      font-family: var(--font-family-mono);
+      color: var(--text-secondary);
+      margin-top: 0.25rem;
+    }
+
+    .radius-grid {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .radius-item {
+      text-align: center;
+    }
+
+    .radius-box {
+      width: 64px;
+      height: 64px;
+      background: var(--bg-surface);
+      border: 2px solid var(--primary-base);
+    }
+
+    .radius-item code {
+      display: block;
+      font-size: var(--font-size-xs);
+      font-family: var(--font-family-mono);
+      color: var(--text-secondary);
+      margin-top: 0.25rem;
+    }
+
+    .shadow-grid {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .shadow-item {
+      text-align: center;
+    }
+
+    .shadow-box {
+      width: 96px;
+      height: 96px;
+      background: var(--bg-elevated);
+      border-radius: var(--radius-md);
+    }
+
+    .shadow-item code {
+      display: block;
+      font-size: var(--font-size-xs);
+      font-family: var(--font-family-mono);
+      color: var(--text-secondary);
+      margin-top: 0.5rem;
+    }
+
+    .global-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .global-swatch {
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .global-swatch-color {
+      height: 48px;
+    }
+
+    .global-swatch-label {
+      padding: 0.375rem 0.5rem;
+      font-size: var(--font-size-xs);
+      font-family: var(--font-family-mono);
+      background: var(--bg-surface);
+      color: var(--text-secondary);
+    }
+
+    .icon-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .icon-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1rem 0.5rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+    }
+
+    .icon-item i {
+      font-size: 1.5rem;
+    }
+
+    .icon-item code {
+      font-size: var(--font-size-xs);
+      font-family: var(--font-family-mono);
+      color: var(--text-secondary);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <button class="theme-toggle" id="theme-toggle">Toggle Dark Mode</button>
+
+  <h1>Style Guide</h1>
+  <p class="subtitle">Auto-generated from design tokens. Toggle dark mode to preview theme.</p>
+
+  <h2>Raw Palette</h2>
+  <h3>Neutrals</h3>
+  <div class="swatch-grid" id="neutrals"></div>
+  <h3>Brand Colors</h3>
+  <div id="raw-brand"></div>
+  <h3>Status Colors</h3>
+  <div id="raw-status"></div>
+
+  <h2>Semantic: Global</h2>
+  <h3>Text</h3>
+  <div class="global-row" id="sem-text"></div>
+  <h3>Backgrounds</h3>
+  <div class="global-row" id="sem-bg"></div>
+  <h3>Border &amp; Shadow</h3>
+  <div class="global-row" id="sem-misc"></div>
+
+  <h2>Semantic: Brand</h2>
+  <p class="subtitle">light = subtle bg, base = main/CTA, dark = text/pressed</p>
+  <div id="sem-brand"></div>
+
+  <h2>Semantic: Status</h2>
+  <p class="subtitle">light = bg tint, base = icon/badge, dark = text</p>
+  <div id="sem-status"></div>
+
+  <h2>Typography</h2>
+  <h3>Font Families</h3>
+  <div id="fonts"></div>
+  <h3>Type Scale</h3>
+  <div class="type-scale" id="type-scale"></div>
+
+  <h2>Spacing</h2>
+  <div class="spacing-grid" id="spacing"></div>
+
+  <h2>Border Radius</h2>
+  <div class="radius-grid" id="radius"></div>
+
+  <h2>Shadows</h2>
+  <div class="shadow-grid" id="shadows"></div>
+
+  <h2>Icons (Lucide)</h2>
+  <p class="subtitle">Sample set. Full library: lucide.dev/icons</p>
+  <div class="icon-grid" id="icons"></div>
+
+  <script>
+    const root = getComputedStyle(document.documentElement);
+    const get = (name) => root.getPropertyValue(name).trim();
+
+    document.getElementById('theme-toggle').addEventListener('click', () => {
+      const html = document.documentElement;
+      html.dataset.theme = html.dataset.theme === 'dark' ? '' : 'dark';
+      if (!html.dataset.theme) delete html.dataset.theme;
+      setTimeout(render, 50);
+    });
+
+    function swatch(color, label, varName) {
+      return `<div class="swatch">
+        <div class="swatch-color" style="background:${color}"></div>
+        <div class="swatch-label">${label}<code>${varName}<br>${color}</code></div>
+      </div>`;
+    }
+
+    function render() {
+      const s = getComputedStyle(document.documentElement);
+      const g = (n) => s.getPropertyValue(n).trim();
+
+      const neutrals = [
+        ['black', '--color-black'],
+        ['neutral-900', '--color-neutral-900'],
+        ['neutral-700', '--color-neutral-700'],
+        ['neutral-500', '--color-neutral-500'],
+        ['neutral-300', '--color-neutral-300'],
+        ['neutral-100', '--color-neutral-100'],
+        ['white', '--color-white'],
+      ];
+      document.getElementById('neutrals').innerHTML = neutrals.map(
+        ([label, v]) => swatch(g(v), label, v)
+      ).join('');
+
+      const brands = ['primary', 'secondary'];
+      const densities = ['light', 'base', 'dark'];
+
+      document.getElementById('raw-brand').innerHTML = brands.map(brand => {
+        const swatches = densities.map(d => {
+          const v = `--color-${brand}-${d}`;
+          return swatch(g(v), d, v);
+        }).join('');
+        return `<h3 style="margin-top:1rem;text-transform:capitalize">${brand}</h3><div class="swatch-grid">${swatches}</div>`;
+      }).join('');
+
+      const statuses = ['error', 'success', 'warning', 'info'];
+
+      document.getElementById('raw-status').innerHTML = statuses.map(status => {
+        const swatches = densities.map(d => {
+          const v = `--color-${status}-${d}`;
+          return swatch(g(v), d, v);
+        }).join('');
+        return `<h3 style="margin-top:1rem;text-transform:capitalize">${status}</h3><div class="swatch-grid">${swatches}</div>`;
+      }).join('');
+
+      const semText = [
+        ['primary', '--text-primary'],
+        ['secondary', '--text-secondary'],
+        ['inverse', '--text-inverse'],
+        ['link', '--text-link'],
+      ];
+      document.getElementById('sem-text').innerHTML = semText.map(([label, v]) => {
+        const color = g(v);
+        return `<div class="global-swatch">
+          <div class="global-swatch-color" style="background:${color}"></div>
+          <div class="global-swatch-label">${label}<br>${v}<br>${color}</div>
+        </div>`;
+      }).join('');
+
+      const semBg = [
+        ['page', '--bg-page'],
+        ['surface', '--bg-surface'],
+        ['elevated', '--bg-elevated'],
+      ];
+      document.getElementById('sem-bg').innerHTML = semBg.map(([label, v]) => {
+        const color = g(v);
+        return `<div class="global-swatch">
+          <div class="global-swatch-color" style="background:${color}"></div>
+          <div class="global-swatch-label">${label}<br>${v}<br>${color}</div>
+        </div>`;
+      }).join('');
+
+      const semMisc = [
+        ['border', '--border'],
+        ['shadow', '--shadow'],
+      ];
+      document.getElementById('sem-misc').innerHTML = semMisc.map(([label, v]) => {
+        const val = g(v);
+        if (label === 'shadow') {
+          return `<div class="global-swatch">
+            <div class="global-swatch-color" style="background:var(--bg-elevated);box-shadow:${val}"></div>
+            <div class="global-swatch-label">${label}<br>${v}</div>
+          </div>`;
+        }
+        return `<div class="global-swatch">
+          <div class="global-swatch-color" style="background:${val}"></div>
+          <div class="global-swatch-label">${label}<br>${v}<br>${val}</div>
+        </div>`;
+      }).join('');
+
+      document.getElementById('sem-brand').innerHTML = brands.map(brand => {
+        const cells = densities.map(d => {
+          const v = `--${brand}-${d}`;
+          const color = g(v);
+          const textColor = d === 'light' ? g(`--${brand}-dark`) : '#ffffff';
+          return `<div class="status-swatch" style="background:${color};color:${textColor}">${d}<br>${color}</div>`;
+        }).join('');
+        return `<div class="status-row">
+          <div class="status-label">${brand}</div>
+          ${cells}
+        </div>`;
+      }).join('');
+
+      document.getElementById('sem-status').innerHTML = statuses.map(status => {
+        const cells = densities.map(d => {
+          const v = `--${status}-${d}`;
+          const color = g(v);
+          const textColor = d === 'light' ? g(`--${status}-dark`) : (d === 'dark' ? '#ffffff' : '#ffffff');
+          return `<div class="status-swatch" style="background:${color};color:${textColor}">${d}<br>${color}</div>`;
+        }).join('');
+        return `<div class="status-row">
+          <div class="status-label">${status}</div>
+          ${cells}
+        </div>`;
+      }).join('');
+
+      const fonts = [
+        ['Inter', 'Base / Body', '--font-family-base', 'The quick brown fox jumps over the lazy dog'],
+        ['Merriweather', 'Secondary / Headings', '--font-family-secondary', 'The quick brown fox jumps over the lazy dog'],
+        ['Fira Code', 'Monospace / Code', '--font-family-mono', 'const x = fn(a, b) => a + b;'],
+      ];
+      document.getElementById('fonts').innerHTML = fonts.map(([name, role, v, sample]) =>
+        `<div class="font-sample">
+          <div class="font-sample-name"><strong>${name}</strong> — ${role}<br>${v}</div>
+          <div class="font-sample-text" style="font-family:${g(v)}">${sample}</div>
+        </div>`
+      ).join('');
+
+      const sizes = ['xs', 'sm', 'base', 'lg', 'xl', '2xl', '3xl'];
+      document.getElementById('type-scale').innerHTML = sizes.map(size => {
+        const v = `--font-size-${size}`;
+        const val = g(v);
+        return `<div class="type-scale-row">
+          <span class="type-scale-label">${v}<br>${val}</span>
+          <span style="font-size:${val}">The quick brown fox</span>
+        </div>`;
+      }).join('');
+
+      const spaces = ['xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl'];
+      document.getElementById('spacing').innerHTML = spaces.map(size => {
+        const v = `--space-${size}`;
+        const val = g(v);
+        return `<div class="spacing-item">
+          <div class="spacing-box" style="width:${val};height:${val}"></div>
+          <code>${size}<br>${val}</code>
+        </div>`;
+      }).join('');
+
+      const radii = ['sm', 'md', 'lg', 'full'];
+      document.getElementById('radius').innerHTML = radii.map(size => {
+        const v = `--radius-${size}`;
+        const val = g(v);
+        return `<div class="radius-item">
+          <div class="radius-box" style="border-radius:${val}"></div>
+          <code>${v}<br>${val}</code>
+        </div>`;
+      }).join('');
+
+      const shadows = ['sm', 'md', 'lg'];
+      document.getElementById('shadows').innerHTML = shadows.map(size => {
+        const v = `--shadow-${size}`;
+        const val = g(v);
+        return `<div class="shadow-item">
+          <div class="shadow-box" style="box-shadow:${val}"></div>
+          <code>${v}</code>
+        </div>`;
+      }).join('');
+
+      const icons = [
+        ['home', 'Home'],
+        ['search', 'Search'],
+        ['user', 'User'],
+        ['settings', 'Settings'],
+        ['bell', 'Bell'],
+        ['mail', 'Mail'],
+        ['heart', 'Heart'],
+        ['star', 'Star'],
+        ['plus', 'Plus'],
+        ['x', 'Close'],
+        ['check', 'Check'],
+        ['alert-triangle', 'Alert'],
+        ['info', 'Info'],
+        ['trash-2', 'Delete'],
+        ['edit', 'Edit'],
+        ['eye', 'Eye'],
+        ['download', 'Download'],
+        ['upload', 'Upload'],
+        ['arrow-left', 'Back'],
+        ['arrow-right', 'Forward'],
+        ['menu', 'Menu'],
+        ['filter', 'Filter'],
+        ['calendar', 'Calendar'],
+        ['clock', 'Clock'],
+      ];
+      document.getElementById('icons').innerHTML = icons.map(([icon, label]) =>
+        `<div class="icon-item">
+          <i class="icon-${icon}"></i>
+          <code>${label}<br>icon-${icon}</code>
+        </div>`
+      ).join('');
+    }
+
+    render();
+  </script>
+
+</body>
+</html>

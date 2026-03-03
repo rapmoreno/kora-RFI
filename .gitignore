@@ -1,0 +1,14 @@
+.DS_Store
+.env
+node_modules/
+test/
+upload/
+download/
+dist/
+
+# Vercel
+.vercel
+
+# Nested git repos
+old-project/.git
+my-old-project/.git

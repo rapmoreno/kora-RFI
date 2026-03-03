@@ -1,0 +1,167 @@
+/*
+ * Module: tokens-semantic.css
+ * Type: Atoms — Semantic Tokens
+ * Purpose: Role-based mappings of raw tokens. This is what molecules and organisms consume.
+ *
+ * Depends on:
+ *   - tokens.css (raw palette values)
+ *
+ * Used by: all molecule and organism CSS files
+ * Side effects: None
+ *
+ * RULE: Molecules and organisms reference ONLY these semantic variables, never raw tokens directly.
+ * THEMING: Override these values inside [data-theme="dark"] or other theme selectors.
+ *
+ * TWO LAYERS:
+ *   1. Global — structural roles (page, surface, text, border)
+ *   2. Brand — primary/secondary with 3 densities (light = bg, base = main, dark = text)
+ *   3. Status — feedback colors with 3 densities (light = bg, base = icon/badge, dark = text)
+ */
+
+/* ========================
+   LAYER 1: GLOBAL
+   ======================== */
+
+:root {
+  /* Text */
+  --text-primary: var(--color-black);
+  --text-secondary: var(--color-neutral-500);
+  --text-inverse: var(--color-white);
+  --text-link: var(--color-primary-base);
+
+  /* Backgrounds */
+  --bg-page: var(--color-white);
+  --bg-surface: var(--color-neutral-100);
+  --bg-elevated: var(--color-white);
+
+  /* Borders */
+  --border: var(--color-neutral-300);
+
+  /* Shadows */
+  --shadow: var(--shadow-md);
+}
+
+/* ========================
+   LAYER 2: BRAND
+   light = subtle bg, hover states
+   base  = main brand color, CTAs
+   dark  = text, pressed states
+   ======================== */
+
+:root {
+  /* Primary */
+  --primary-light: var(--color-primary-light);
+  --primary-base: var(--color-primary-base);
+  --primary-dark: var(--color-primary-dark);
+
+  /* Secondary */
+  --secondary-light: var(--color-secondary-light);
+  --secondary-base: var(--color-secondary-base);
+  --secondary-dark: var(--color-secondary-dark);
+}
+
+/* ========================
+   LAYER 3: STATUS
+   light = background tint
+   base  = icon, badge, indicator
+   dark  = text
+   ======================== */
+
+:root {
+  /* Error */
+  --error-light: var(--color-error-light);
+  --error-base: var(--color-error-base);
+  --error-dark: var(--color-error-dark);
+
+  /* Success */
+  --success-light: var(--color-success-light);
+  --success-base: var(--color-success-base);
+  --success-dark: var(--color-success-dark);
+
+  /* Warning */
+  --warning-light: var(--color-warning-light);
+  --warning-base: var(--color-warning-base);
+  --warning-dark: var(--color-warning-dark);
+
+  /* Info */
+  --info-light: var(--color-info-light);
+  --info-base: var(--color-info-base);
+  --info-dark: var(--color-info-dark);
+}
+
+/* ========================
+   AVATAR UI (Ah Meng page)
+   ======================== */
+
+:root {
+  --primary-gradient: linear-gradient(135deg, var(--color-gradient-start) 0%, var(--color-gradient-mid) 100%);
+  --glass-bg: var(--color-glass-bg);
+  --glass-bg-hover: var(--color-glass-bg-hover);
+  --glass-border: var(--color-glass-border);
+  --avatar-scale: 1.2;
+  --avatar-translate-y: -50px;
+  --button-primary: var(--color-button-primary);
+  --button-primary-hover: var(--color-button-primary-hover);
+  --button-danger: var(--color-button-danger);
+  --button-gradient: linear-gradient(135deg, rgba(102, 126, 234, 0.4), rgba(118, 75, 162, 0.4));
+  --button-gradient-hover: linear-gradient(135deg, rgba(102, 126, 234, 0.6), rgba(118, 75, 162, 0.6));
+  --text-white: var(--color-text-on-dark);
+  --text-white-secondary: var(--color-text-on-dark-secondary);
+  --text-dark: var(--color-neutral-900);
+  --text-gray: var(--color-neutral-500);
+  --shadow-light: 0 4px 20px rgba(0, 0, 0, 0.1);
+  --shadow-medium: 0 8px 32px rgba(0, 0, 0, 0.15);
+  --shadow-heavy: 0 10px 40px rgba(0, 0, 0, 0.2);
+  --border-radius-small: 8px;
+  --border-radius-medium: 15px;
+  --border-radius-large: 25px;
+  --border-radius-full: 50%;
+  --transition-fast: 0.2s ease-in-out;
+  --transition-medium: 0.5s ease;
+}
+
+/* ========================
+   DARK THEME
+   ======================== */
+
+[data-theme="dark"] {
+  /* Global */
+  --text-primary: var(--color-neutral-100);
+  --text-secondary: var(--color-neutral-500);
+  --text-inverse: var(--color-black);
+  --text-link: var(--color-primary-base);
+
+  --bg-page: #0a0a0a;
+  --bg-surface: var(--color-neutral-900);
+  --bg-elevated: #262626;
+
+  --border: #333333;
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+
+  /* Brand — adjust for dark backgrounds */
+  --primary-light: #1e2a4a;
+  --primary-base: #60a5fa;
+  --primary-dark: #bfdbfe;
+
+  --secondary-light: #2e1a47;
+  --secondary-base: #a78bfa;
+  --secondary-dark: #ddd6fe;
+
+  /* Status — flip densities for dark backgrounds */
+  --error-light: #451a1a;
+  --error-base: #f87171;
+  --error-dark: #fecaca;
+
+  --success-light: #14332a;
+  --success-base: #4ade80;
+  --success-dark: #bbf7d0;
+
+  --warning-light: #422006;
+  --warning-base: #fbbf24;
+  --warning-dark: #fef3c7;
+
+  --info-light: #1e2a4a;
+  --info-base: #60a5fa;
+  --info-dark: #bfdbfe;
+
+}

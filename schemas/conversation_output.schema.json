@@ -1,0 +1,8 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "description": "Free-form conversational text response",
+  "properties": {
+    "response": { "type": "string", "description": "Agent's conversational response" }
+  }
+}

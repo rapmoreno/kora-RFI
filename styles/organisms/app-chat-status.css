@@ -1,0 +1,66 @@
+/*
+ * Module: app-chat-status.css
+ * Type: Organism
+ * Purpose: Layout and styling for status indicator (shared by app-chat-input)
+ *
+ * Depends on: atoms/tokens-semantic.css
+ * Used by: app-chat-status, app-chat-input
+ * Side effects: None
+ */
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes kb-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.1); }
+}
+
+app-chat-status {
+  display: block;
+}
+
+.claude-status-indicator {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 8px;
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  padding: 8px 16px;
+  border-radius: var(--border-radius-large);
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  backdrop-filter: blur(15px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-light);
+  white-space: nowrap;
+  z-index: 200;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--border-radius-full);
+  background: #4ade80;
+}
+
+.status-dot.thinking {
+  background: #fbbf24;
+  animation: pulse 1.5s infinite;
+}
+
+.status-dot.knowledge-base {
+  background: #8b5cf6;
+  animation: kb-pulse 2s infinite;
+}
+
+.u-hidden {
+  display: none;
+}
