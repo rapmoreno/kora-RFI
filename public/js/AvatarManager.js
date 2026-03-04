@@ -174,7 +174,8 @@ export class AvatarManager {
       linkButtonManager: this.linkButtonManager,
       head: this.head,
       isLoaded: this.isLoaded,
-      animationManager: this.animationManager // Pass AnimationManager to ChatManager
+      animationManager: this.animationManager,
+      speechBubbleManager: this.speechBubbleManager
     });
     
     // Set up WebSocket callbacks including ChatManager's response handler
