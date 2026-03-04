@@ -14,9 +14,9 @@ dotenv.config();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Vercel bundles files relative to the function - adjust base path
+// Vercel bundles files relative to the function - use cwd for Vercel
 const BASE_DIR = process.env.VERCEL === '1'
-  ? path.join(__dirname, '..')
+  ? process.cwd()
   : __dirname;
 
 const app = express();
@@ -48,6 +48,19 @@ app.get('/api/health', (req, res) => {
     status: 'healthy',
     service: 'SASI-KORA Emotion Engine',
     timestamp: new Date().toISOString()
+  });
+});
+
+// Debug endpoint for Vercel
+app.get('/api/debug', async (req, res) => {
+  const fs = await import('fs');
+  const files = fs.default.readdirSync(BASE_DIR).slice(0, 20);
+  res.json({
+    __dirname,
+    BASE_DIR,
+    cwd: process.cwd(),
+    VERCEL: process.env.VERCEL,
+    files
   });
 });
 
