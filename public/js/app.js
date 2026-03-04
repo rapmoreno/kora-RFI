@@ -1,14 +1,7 @@
-// Debug helper
-const _dbg = window.__debugLog || ((msg) => console.log(msg));
-_dbg('[app.js] Module loading started');
-
 // Import components (register before use)
 import "/web-components/app-avatar.js";
-_dbg('[app.js] app-avatar.js imported');
 import "/web-components/app-chat-input.js";
-_dbg('[app.js] app-chat-input.js imported');
 import "/web-components/app-chat-status.js";
-_dbg('[app.js] app-chat-status.js imported');
 
 // Import modules
 import { EmojiManager } from "./EmojiManager.js";
@@ -23,7 +16,6 @@ import { TTSManager } from "./TTSManager.js";
 import { WebSocketManager } from "./WebSocketManager.js";
 import { ChatManager } from "./ChatManager.js";
 import { AvatarManager } from "./AvatarManager.js";
-_dbg('[app.js] All modules imported successfully');
 
 // =====================================================
 // GLOBAL VARIABLES
@@ -74,7 +66,6 @@ let avatarManager = null;
 // INITIALIZATION FUNCTIONS (moved to AvatarManager)
 // =====================================================
 async function initializeApp() {
-  _dbg('[init] initializeApp() started');
   // Initialize all managers first
   uiManager = new UIManager();
   speechBubbleManager = new SpeechBubbleManager();
@@ -139,13 +130,10 @@ async function initializeApp() {
   
   // Initialize the avatar (this will initialize all other managers too)
   // Start avatar loading countdown immediately
-  _dbg('[init] Starting avatar loading countdown');
   avatarManager.startAvatarLoadingCountdown();
 
   // Initialize avatar (will hide loading screen when ready)
-  _dbg('[init] Calling avatarManager.initAvatar()');
   await avatarManager.initAvatar();
-  _dbg('[init] avatarManager.initAvatar() finished');
   
   // Make managers available globally for interruption after initialization
   window.ttsManager = ttsManager;
@@ -254,11 +242,5 @@ window.toggleConfetti = () => {
 
 // Initialize everything when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-  _dbg('[app.js] DOMContentLoaded - calling initializeApp()');
-  initializeApp().then(() => {
-    _dbg('[app.js] initializeApp() completed');
-  }).catch((err) => {
-    _dbg('[app.js] initializeApp() FAILED: ' + err.message, '#f44');
-    console.error('initializeApp error:', err);
-  });
+  initializeApp();
 });
