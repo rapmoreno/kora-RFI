@@ -26,6 +26,12 @@ const PORT = parseInt(process.env.API_PORT || process.env.PORT || '8888', 10);
 app.use(cors());
 app.use(express.json());
 
+// Request logging for debugging
+app.use((req, res, next) => {
+  console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+  next();
+});
+
 // Static files
 app.use(express.static(path.join(BASE_DIR, 'public')));
 app.use(express.static(BASE_DIR));
@@ -54,13 +60,36 @@ app.get('/api/health', (req, res) => {
 // Debug endpoint for Vercel
 app.get('/api/debug', async (req, res) => {
   const fs = await import('fs');
-  const files = fs.default.readdirSync(BASE_DIR).slice(0, 20);
+  let files = [];
+  let publicFiles = [];
+  let stylesFiles = [];
+
+  try {
+    files = fs.default.readdirSync(BASE_DIR);
+  } catch (e) {
+    files = ['ERROR: ' + e.message];
+  }
+
+  try {
+    publicFiles = fs.default.readdirSync(path.join(BASE_DIR, 'public'));
+  } catch (e) {
+    publicFiles = ['ERROR: ' + e.message];
+  }
+
+  try {
+    stylesFiles = fs.default.readdirSync(path.join(BASE_DIR, 'styles'));
+  } catch (e) {
+    stylesFiles = ['ERROR: ' + e.message];
+  }
+
   res.json({
     __dirname,
     BASE_DIR,
     cwd: process.cwd(),
     VERCEL: process.env.VERCEL,
-    files
+    files,
+    publicFiles,
+    stylesFiles
   });
 });
 
@@ -68,6 +97,18 @@ app.get('/api/debug', async (req, res) => {
 app.use('/api/emotional-state', emotionalStateRoutes);
 app.use('/api/config', configRoutes);
 app.use('/api/elevenlabs', elevenLabsRoutes);
+
+// 404 handler - catch unmatched routes
+app.use((req, res) => {
+  console.log(`[404] Not found: ${req.url} | BASE_DIR: ${BASE_DIR}`);
+  res.status(404).json({
+    error: 'Not Found',
+    url: req.url,
+    BASE_DIR,
+    __dirname,
+    cwd: process.cwd()
+  });
+});
 
 // Export app for Vercel (serverless)
 export default app;
