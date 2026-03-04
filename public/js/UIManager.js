@@ -110,12 +110,8 @@ export class UIManager {
   // LOADING SCREEN MANAGEMENT
   // =====================================================
   updateLoadingScreen(progress, text) {
-    const loadingCounter = document.getElementById('loadingCounter');
-    const loadingProgressBar = document.getElementById('loadingProgressBar');
+    // Only update the subtitle text — the countdown number is managed by AvatarManager
     const loadingText = document.getElementById('loadingText');
-    
-    if (loadingCounter) loadingCounter.textContent = `${Math.round(progress)}%`;
-    if (loadingProgressBar) loadingProgressBar.style.width = `${progress}%`;
     if (loadingText) loadingText.textContent = text;
   }
 

@@ -124,15 +124,9 @@ export class AvatarManager {
       await new Promise(resolve => setTimeout(resolve, 500));
       
       this.uiManager?.updateLoadingScreen(100, 'Ready!');
-      
-      // Wait a moment before hiding
-      await new Promise(resolve => setTimeout(resolve, 800));
-      
+
       this.isLoaded = true;
-      this.uiManager?.hideLoadingScreen();
-      
-      // Hide avatar loading screen (countdown or when avatar is ready)
-      this.hideAvatarLoadingScreen();
+      // Loading screen is hidden by the countdown timer, not here
       
       // Initialize other managers with avatar dependencies
       await this.initializeOtherManagers();
@@ -145,8 +139,7 @@ export class AvatarManager {
       this.uiManager?.updateLoadingScreen(0, 'Error loading avatar: ' + error.message);
       this.uiManager?.updateClaudeStatus('Avatar Error', 'error');
       
-      // Hide loading screen even on error
-      setTimeout(() => this.uiManager?.hideLoadingScreen(), 2000);
+      // Loading screen is hidden by the countdown timer, not here
     }
   }
 
