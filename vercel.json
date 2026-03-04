@@ -5,7 +5,7 @@
   "installCommand": "npm install",
   "functions": {
     "api/index.js": {
-      "includeFiles": "dist/**,prompts/**,public/**,index.html,chat-ui.html,styles/**,js/**,agents/**,*.js,*.glb,images/**"
+      "includeFiles": "dist/**,prompts/**,public/**,web-components/**,index.html,chat-ui.html,styles/**,js/**,agents/**,*.js,*.glb,images/**"
     }
   },
   "rewrites": [

@@ -13,8 +13,13 @@ const router = Router();
  */
 router.get('/', (_req, res) => {
   try {
-    const avatarUrl = process.env.READYPLAYERME_AVATAR_URL || process.env.AVATAR_URL;
+    let avatarUrl = process.env.READYPLAYERME_AVATAR_URL || process.env.AVATAR_URL;
     const voiceId = process.env.VOICE_ID || process.env.ELEVENLABS_VOICE_ID;
+
+    // Normalize avatar URL: bare filenames like "69a707ed...glb" become full ReadyPlayerMe URLs
+    if (avatarUrl && !avatarUrl.startsWith('http') && !avatarUrl.startsWith('/')) {
+      avatarUrl = `https://models.readyplayer.me/${avatarUrl}`;
+    }
 
     if (!avatarUrl || !voiceId) {
       res.status(500).json({

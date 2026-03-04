@@ -38,6 +38,9 @@ export class ConfigManager {
       let avatarUrl = serverConfig.avatarUrl;
       if (avatarUrl.startsWith('/')) {
         avatarUrl = window.location.origin + avatarUrl;
+      } else if (!avatarUrl.startsWith('http')) {
+        // Bare filename fallback: assume ReadyPlayerMe avatar
+        avatarUrl = `https://models.readyplayer.me/${avatarUrl}`;
       }
       this.config.avatarUrl = avatarUrl;
       this.config.voiceId = serverConfig.voiceId;
