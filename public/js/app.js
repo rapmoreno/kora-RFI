@@ -128,9 +128,8 @@ async function initializeApp() {
     animationManager // Pass AnimationManager to AvatarManager
   });
   
-  // Warm up serverless functions while avatar loads
+  // Warm up the serverless function (initializes orchestrator) while avatar loads
   fetch('/api/emotional-state/health').catch(() => {});
-  fetch('/api/elevenlabs/health').catch(() => {});
 
   // Initialize the avatar (this will initialize all other managers too)
   // Start avatar loading countdown immediately

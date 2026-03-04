@@ -407,12 +407,53 @@ export class AvatarManager {
     this.countdownInterval = countdownInterval;
   }
   
-  // Pre-warm TTS AudioContext
-  preWarmTTS() {
-    // Initialize AudioContext early (will be suspended until user interaction, but ready)
-    if (this.ttsManager && !this.ttsManager.audioContext) {
-      this.ttsManager.audioContext = new (window.AudioContext || window.webkitAudioContext)();
-      console.log('✅ AudioContext initialized (suspended until user interaction)');
+  // Pre-warm ElevenLabs TTS system
+  async preWarmTTS() {
+    try {
+      console.log('🔥 Pre-warming ElevenLabs TTS...');
+      
+      // Initialize AudioContext early (will be suspended until user interaction, but ready)
+      if (this.ttsManager && !this.ttsManager.audioContext) {
+        // Create AudioContext (will be suspended, but ready to resume on first user interaction)
+        this.ttsManager.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        console.log('✅ AudioContext initialized (suspended until user interaction)');
+      }
+      
+      // Make a small test API call to warm up the connection
+      // This helps reduce latency on the first real TTS call
+      if (this.configManager) {
+        const config = await this.configManager.loadConfig();
+        if (config && config.voiceId) {
+          // Make a minimal test call (just to warm up the API connection)
+          // Using a very short text to minimize cost
+          try {
+            const response = await fetch('/api/elevenlabs/tts', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                text: 'Hi',
+                voiceId: config.voiceId,
+                speed: 0.8,
+                stream: false, // Don't stream for warm-up
+              }),
+            });
+            
+            if (response.ok) {
+              console.log('✅ ElevenLabs API connection warmed up');
+            } else {
+              console.warn('⚠️ ElevenLabs warm-up call failed (non-critical)');
+            }
+          } catch (error) {
+            // Non-critical - warm-up failed, but TTS will still work
+            console.warn('⚠️ ElevenLabs warm-up error (non-critical):', error.message);
+          }
+        }
+      }
+    } catch (error) {
+      // Non-critical - warm-up failed, but TTS will still work
+      console.warn('⚠️ TTS pre-warming error (non-critical):', error.message);
     }
   }
   
