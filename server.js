@@ -38,6 +38,7 @@ app.use(express.static(BASE_DIR));
 app.use('/css', express.static(path.join(BASE_DIR, 'public', 'css')));
 app.use('/js', express.static(path.join(BASE_DIR, 'public', 'js')));
 app.use('/web-components', express.static(path.join(BASE_DIR, 'public', 'web-components')));
+app.use('/scripts', express.static(path.join(BASE_DIR, 'public', 'scripts')));
 
 // Serve index.html (Kora avatar with web components) - DEFAULT ROUTE
 app.get('/', (req, res) => {
