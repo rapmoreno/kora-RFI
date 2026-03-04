@@ -14,6 +14,11 @@ dotenv.config();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// Vercel bundles files relative to the function - adjust base path
+const BASE_DIR = process.env.VERCEL === '1'
+  ? path.join(__dirname, '..')
+  : __dirname;
+
 const app = express();
 const PORT = parseInt(process.env.API_PORT || process.env.PORT || '8888', 10);
 
@@ -22,19 +27,19 @@ app.use(cors());
 app.use(express.json());
 
 // Static files
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname)));
-app.use('/css', express.static(path.join(__dirname, 'public', 'css')));
-app.use('/js', express.static(path.join(__dirname, 'public', 'js')));
+app.use(express.static(path.join(BASE_DIR, 'public')));
+app.use(express.static(BASE_DIR));
+app.use('/css', express.static(path.join(BASE_DIR, 'public', 'css')));
+app.use('/js', express.static(path.join(BASE_DIR, 'public', 'js')));
 
-// Serve index.html (Ah Meng avatar with web components) - DEFAULT ROUTE
+// Serve index.html (Kora avatar with web components) - DEFAULT ROUTE
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
+  res.sendFile(path.join(BASE_DIR, 'index.html'));
 });
 
 // Serve chat-ui.html (text-only testing) - available at /chat
 app.get('/chat', (req, res) => {
-  res.sendFile(path.join(__dirname, 'chat-ui.html'));
+  res.sendFile(path.join(BASE_DIR, 'chat-ui.html'));
 });
 
 // Health check
