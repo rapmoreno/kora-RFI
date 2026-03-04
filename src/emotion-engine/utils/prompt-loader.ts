@@ -3,7 +3,7 @@
  * Loads markdown prompts from client-specific directories
  */
 
-import { readFile } from 'fs/promises';
+import { readFile, access } from 'fs/promises';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { PromptLoadError } from './errors.js';
@@ -17,20 +17,27 @@ const promptCache = new Map<string, string>();
 /**
  * Get the project root directory
  * Works in both local development and Vercel serverless environments
+ * On Vercel, root-level dirs (agents/, prompts/) are only accessible inside public/
  */
-function getProjectRoot(): string {
-  // In Vercel serverless, process.cwd() points to the project root
-  // In local dev, if running from dist/, we need to go up
-  const cwd = process.cwd();
+async function getProjectRoot(): Promise<string> {
   const fromCompiled = join(__dirname, '..', '..', '..');
-  
-  // Default to cwd (works in Vercel and local when running from root)
-  // If we're in a dist/ directory, use the compiled location path
-  if (__dirname.includes('dist')) {
-    return fromCompiled;
+  const root = __dirname.includes('dist') ? fromCompiled : process.cwd();
+
+  // Check if prompts exist at root level (local dev)
+  const promptsAtRoot = join(root, 'prompts');
+  const promptsInPublic = join(root, 'public', 'prompts');
+
+  try {
+    await access(promptsAtRoot);
+    return root;
+  } catch {
+    try {
+      await access(promptsInPublic);
+      return join(root, 'public');
+    } catch {
+      return root;
+    }
   }
-  
-  return cwd;
 }
 
 /**
@@ -51,7 +58,7 @@ export async function loadPrompt(
   }
 
   try {
-    const projectRoot = getProjectRoot();
+    const projectRoot = await getProjectRoot();
 
     // Registry format: full path (prompts/...)
     const possiblePaths = promptFile.startsWith('prompts/')
@@ -59,6 +66,7 @@ export async function loadPrompt(
       : [
           join(projectRoot, 'prompts', client, 'emotional-state-engine-prompts', promptFile),
           join(process.cwd(), 'prompts', client, 'emotional-state-engine-prompts', promptFile),
+          join(process.cwd(), 'public', 'prompts', client, 'emotional-state-engine-prompts', promptFile),
           join(__dirname, '..', '..', '..', 'prompts', client, 'emotional-state-engine-prompts', promptFile),
         ];
     
@@ -93,7 +101,7 @@ export async function loadPrompt(
     return trimmedContent;
   } catch (error) {
     const err = error as NodeJS.ErrnoException;
-    const projectRoot = getProjectRoot();
+    const projectRoot = await getProjectRoot();
     const attemptedPath = join(
       projectRoot,
       'prompts',

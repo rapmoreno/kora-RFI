@@ -4,6 +4,7 @@
  */
 
 import { readFile } from 'fs/promises';
+import { access } from 'fs/promises';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import yaml from 'js-yaml';
@@ -38,12 +39,26 @@ export interface AgentRegistry {
 
 let registryCache: AgentRegistry | null = null;
 
-function getProjectRoot(): string {
+async function getProjectRoot(): Promise<string> {
   const fromCompiled = join(__dirname, '..', '..', '..');
-  if (__dirname.includes('dist')) {
-    return fromCompiled;
+  const root = __dirname.includes('dist') ? fromCompiled : process.cwd();
+
+  // On Vercel, root-level dirs (agents/, prompts/) are only accessible inside public/
+  const registryAtRoot = join(root, 'agents', 'registry.yaml');
+  const registryInPublic = join(root, 'public', 'agents', 'registry.yaml');
+
+  try {
+    await access(registryAtRoot);
+    return root;
+  } catch {
+    try {
+      await access(registryInPublic);
+      return join(root, 'public');
+    } catch {
+      // Fall through to root — the caller will report the detailed error
+      return root;
+    }
   }
-  return process.cwd();
 }
 
 /**
@@ -54,7 +69,7 @@ export async function loadRegistry(): Promise<AgentRegistry> {
     return registryCache;
   }
 
-  const projectRoot = getProjectRoot();
+  const projectRoot = await getProjectRoot();
   const registryPath = join(projectRoot, 'agents', 'registry.yaml');
 
   let raw: string;

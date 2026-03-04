@@ -1,0 +1,16 @@
+version: 1
+agents:
+  - id: agent_name
+    name: Agent Name
+    version: 0.1.0
+    enabled: true
+    provider:
+    model:
+    description:
+    tags: []
+    prompt_file: prompts/agent_name.md
+    output_schema: schemas/agent_name_output.schema.json
+    params:
+      temperature: 0
+      max_tokens: 4000
+    guardrails: []
