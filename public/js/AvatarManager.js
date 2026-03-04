@@ -378,7 +378,6 @@ export class AvatarManager {
   startAvatarLoadingCountdown() {
     const loadingScreen = document.getElementById('loadingScreen');
     const countdownElement = document.getElementById('loadingCounter');
-    const progressBar = document.getElementById('loadingProgressBar');
     
     if (!loadingScreen || !countdownElement) {
       console.warn('Avatar loading screen elements not found');
@@ -388,37 +387,21 @@ export class AvatarManager {
     // Show loading screen
     loadingScreen.classList.remove('hidden');
     
-    let countdown = 4;
-    const totalSeconds = 4;
+    let countdown = 8;
     countdownElement.textContent = countdown;
-    
-    // Reset progress bar
-    if (progressBar) {
-      progressBar.style.width = '0%';
-    }
-    
+
     // Pre-warm ElevenLabs TTS during countdown
     this.preWarmTTS();
-    
+
     const countdownInterval = setInterval(() => {
       countdown--;
-      const progress = ((totalSeconds - countdown) / totalSeconds) * 100;
-      
-      // Update progress bar
-      if (progressBar) {
-        progressBar.style.width = `${progress}%`;
-        progressBar.style.transition = 'width 0.3s ease-out';
-      }
-      
+
       if (countdown > 0) {
         countdownElement.textContent = countdown;
       } else {
         countdownElement.textContent = '0';
-        if (progressBar) {
-          progressBar.style.width = '100%';
-        }
         clearInterval(countdownInterval);
-        
+
         // Hide after a brief moment
         setTimeout(() => {
           this.hideAvatarLoadingScreen();

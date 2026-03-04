@@ -24,11 +24,8 @@ class AppAvatar extends HTMLElement {
           <div class="avatar-loading-title">Initializing Avatar</div>
           <div class="avatar-loading-subtitle" id="loadingText">Preparing your experience...</div>
           <div class="avatar-loading-countdown-wrapper">
-            <div class="avatar-loading-countdown" id="loadingCounter">4</div>
+            <div class="avatar-loading-countdown" id="loadingCounter">8</div>
             <div class="countdown-label">seconds</div>
-          </div>
-          <div class="avatar-loading-progress">
-            <div class="progress-bar" id="loadingProgressBar"></div>
           </div>
         </div>
       </div>
