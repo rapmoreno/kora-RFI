@@ -16,8 +16,7 @@ export class ChatManager {
     this.emojiManager = null;
     this.linkButtonManager = null;
     this.animationManager = null;
-    this.speechBubbleManager = null;
-
+    
     // Avatar dependencies
     this.head = null;
     this.isLoaded = null;
@@ -26,17 +25,16 @@ export class ChatManager {
   // =====================================================
   // SETUP AND CONFIGURATION
   // =====================================================
-  setDependencies({
-    webSocketManager,
-    uiManager,
-    idleTimerManager,
-    ttsManager,
-    emojiManager,
+  setDependencies({ 
+    webSocketManager, 
+    uiManager, 
+    idleTimerManager, 
+    ttsManager, 
+    emojiManager, 
     linkButtonManager,
     head,
     isLoaded,
-    animationManager,
-    speechBubbleManager
+    animationManager
   }) {
     this.webSocketManager = webSocketManager;
     this.uiManager = uiManager;
@@ -47,7 +45,6 @@ export class ChatManager {
     this.head = head;
     this.isLoaded = isLoaded;
     this.animationManager = animationManager;
-    this.speechBubbleManager = speechBubbleManager;
   }
 
   // =====================================================
@@ -185,14 +182,8 @@ export class ChatManager {
       this.ttsManager.speakText(filteredResponse);
     }
     
-    // Show speech bubble immediately (don't rely solely on TTS pipeline)
-    if (this.speechBubbleManager) {
-      const cleanText = this.linkButtonManager
-        ? this.linkButtonManager.filterBracketedContent(response)
-        : response;
-      this.speechBubbleManager.showSpeechBubble(cleanText);
-    }
-
+    // PRIORITY 2: Visual processing can happen in parallel while TTS is generating
+    
     // Update knowledge base thinking text if it was used
     if (usedKnowledgeBase && this.uiManager) {
       this.uiManager.updateKnowledgeBaseThinkingText('Preparing response...');
