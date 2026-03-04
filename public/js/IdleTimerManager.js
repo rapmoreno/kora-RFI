@@ -81,11 +81,7 @@ export class IdleTimerManager {
       }
     }, this.idleTimeoutMs);
     
-    // Set timer for idle speech (15 seconds)
-    this.idleSpeechTimer = setTimeout(() => {
-      console.log(`⏰ Idle speech timer fired after ${this.idleSpeechTimeoutMs/1000} seconds`);
-      this.triggerIdleSpeech();
-    }, this.idleSpeechTimeoutMs);
+    // Idle speech disabled - was triggering API calls before user interaction
   }
 
   resetIdleTimer() {
