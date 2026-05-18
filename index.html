@@ -41,6 +41,23 @@
       <app-avatar></app-avatar>
       <app-chat-input></app-chat-input>
     </section>
+
+    <!-- Single Book Cover Display -->
+    <div id="bookCoverDisplay" class="book-cover-display" aria-label="Book cover">
+      <h3 id="singleBookHeader" class="books-header">Featured Book</h3>
+      <div class="book-cover-container">
+        <div id="bookCoverLoading" class="book-cover-loading"></div>
+        <img id="bookCoverImage" class="book-cover-image u-hidden" src="" alt="">
+        <div id="bookCoverTitle" class="book-cover-title"></div>
+        <div id="bookCoverAuthor" class="book-cover-author"></div>
+      </div>
+    </div>
+
+    <!-- Multiple Books Display -->
+    <div id="multipleBooksDisplay" class="multiple-books-display" aria-label="Book recommendations">
+      <h3 id="booksHeader" class="books-header">Recommended Books</h3>
+      <div id="booksGrid" class="books-grid"></div>
+    </div>
   </main>
 
   <script type="application/ld+json">

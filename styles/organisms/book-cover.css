@@ -1,0 +1,244 @@
+/*
+ * Module: book-cover.css
+ * Type: Organism
+ * Purpose: Book cover display cards — single and multi-book grid overlays
+ *
+ * Depends on: atoms/tokens.css, atoms/tokens-semantic.css
+ * Used by: index.html (BookCoverManager)
+ * Side effects: None
+ */
+
+/* =====================================================
+   SINGLE BOOK COVER DISPLAY
+   ===================================================== */
+
+.book-cover-display {
+  position: fixed;
+  bottom: 120px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(15px);
+  border-radius: 16px;
+  padding: 20px;
+  max-width: 220px;
+  opacity: 0;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  pointer-events: none;
+  text-align: center;
+}
+
+.book-cover-display.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+
+.book-cover-display:hover {
+  background: rgba(0, 0, 0, 0.85);
+  box-shadow: 20px 20px 60px 8px rgba(0, 0, 0, 0.25);
+  transform: translateX(-50%) translateY(-2px);
+}
+
+.book-cover-container {
+  text-align: center;
+}
+
+.book-cover-image {
+  width: 100%;
+  height: auto;
+  max-height: 250px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  margin-bottom: 10px;
+  object-fit: cover;
+}
+
+.book-cover-loading {
+  width: 170px;
+  height: 220px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.book-cover-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 4px;
+  line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.book-cover-author {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+  font-style: italic;
+  line-height: 1.3;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* =====================================================
+   MULTIPLE BOOKS DISPLAY
+   ===================================================== */
+
+.multiple-books-display {
+  position: fixed;
+  bottom: 120px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(15px);
+  border-radius: 16px;
+  padding: 20px;
+  max-width: 600px;
+  opacity: 0;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  pointer-events: none;
+}
+
+.multiple-books-display.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+
+.multiple-books-display:hover {
+  background: rgba(0, 0, 0, 0.85);
+  box-shadow: 20px 20px 60px 8px rgba(0, 0, 0, 0.25);
+  transform: translateX(-50%) translateY(-2px);
+}
+
+.books-header {
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.books-grid {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.book-item {
+  text-align: center;
+  max-width: 120px;
+  transition: transform 0.2s ease;
+}
+
+.book-item:hover {
+  transform: translateY(-5px);
+}
+
+.book-item img {
+  width: 100px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  margin-bottom: 8px;
+  transition: box-shadow 0.2s ease;
+}
+
+.book-item:hover img {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+}
+
+.book-item .title {
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: #ffffff;
+  line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.book-item .author {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.2;
+  font-style: italic;
+}
+
+/* =====================================================
+   ANIMATION
+   ===================================================== */
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media (max-width: 768px) {
+  .book-cover-display {
+    right: 20px;
+    top: 40%;
+  }
+
+  .book-cover-container {
+    max-width: 150px;
+    padding: 10px;
+  }
+
+  .book-cover-image {
+    max-height: 180px;
+  }
+
+  .book-cover-title {
+    font-size: 12px;
+  }
+
+  .book-cover-author {
+    font-size: 10px;
+  }
+
+  .multiple-books-display {
+    bottom: 80px;
+    max-width: 95vw;
+    padding: 15px;
+  }
+
+  .books-header {
+    font-size: 14px;
+    margin-bottom: 12px;
+  }
+
+  .books-grid {
+    gap: 10px;
+  }
+
+  .book-item {
+    max-width: 100px;
+  }
+
+  .book-item img {
+    width: 80px;
+    height: 110px;
+  }
+
+  .book-item .title {
+    font-size: 10px;
+  }
+
+  .book-item .author {
+    font-size: 9px;
+  }
+}

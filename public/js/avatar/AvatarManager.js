@@ -28,13 +28,14 @@ export class AvatarManager {
   // =====================================================
   // SETUP AND CONFIGURATION
   // =====================================================
-  setDependencies({ 
+  setDependencies({
     configManager,
     uiManager,
     idleTimerManager,
     voiceStateManager,
     emojiManager,
     linkButtonManager,
+    bookCoverManager,
     speechBubbleManager,
     speechRecognitionManager,
     ttsManager,
@@ -48,6 +49,7 @@ export class AvatarManager {
     this.voiceStateManager = voiceStateManager;
     this.emojiManager = emojiManager;
     this.linkButtonManager = linkButtonManager;
+    this.bookCoverManager = bookCoverManager;
     this.speechBubbleManager = speechBubbleManager;
     this.speechRecognitionManager = speechRecognitionManager;
     this.ttsManager = ttsManager;
@@ -173,11 +175,12 @@ export class AvatarManager {
       ttsManager: this.ttsManager,
       emojiManager: this.emojiManager,
       linkButtonManager: this.linkButtonManager,
+      bookCoverManager: this.bookCoverManager,
       head: this.head,
       isLoaded: this.isLoaded,
       animationManager: this.animationManager // Pass AnimationManager to ChatManager
     });
-    
+
     // Set up WebSocket callbacks including ChatManager's response handler
     this.webSocketManager?.setCallbacks({
       onStatusUpdate: (status, type) => this.uiManager?.updateClaudeStatus(status, type),

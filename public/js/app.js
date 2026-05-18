@@ -15,6 +15,7 @@ import { SpeechRecognitionManager } from "./SpeechRecognitionManager.js";
 import { TTSManager } from "./TTSManager.js";
 import { WebSocketManager } from "./WebSocketManager.js";
 import { ChatManager } from "./ChatManager.js";
+import { BookCoverManager } from "./BookCoverManager.js";
 import { AvatarManager } from "./AvatarManager.js";
 
 // =====================================================
@@ -38,6 +39,7 @@ let webSocketManager = null;
 // CONFETTI APPRECIATION SYSTEM
 // ================================
 let confettiManager = null;
+let bookCoverManager = null;
 let chatManager = null;
 let avatarManager = null;
 
@@ -77,6 +79,7 @@ async function initializeApp() {
   voiceStateManager = new VoiceStateManager();
   emojiManager = new EmojiManager();
   linkButtonManager = new LinkButtonManager();
+  bookCoverManager = new BookCoverManager();
   webSocketManager = new WebSocketManager();
   chatManager = new ChatManager();
   
@@ -125,6 +128,7 @@ async function initializeApp() {
     ttsManager,
     webSocketManager,
     chatManager,
+    bookCoverManager,
     animationManager // Pass AnimationManager to AvatarManager
   });
   

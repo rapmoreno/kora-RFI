@@ -7,6 +7,7 @@ import dotenv from 'dotenv';
 import emotionalStateRoutes from './dist/api/emotional-state.js';
 import configRoutes from './dist/api/config.js';
 import elevenLabsRoutes from './dist/api/elevenlabs-tts.js';
+import catalogueRoutes from './dist/api/catalogue-search.js';
 
 // Load environment variables
 dotenv.config();
@@ -99,6 +100,7 @@ app.get('/api/debug', async (req, res) => {
 app.use('/api/emotional-state', emotionalStateRoutes);
 app.use('/api/config', configRoutes);
 app.use('/api/elevenlabs', elevenLabsRoutes);
+app.use('/api/catalogue', catalogueRoutes);
 
 // 404 handler - catch unmatched routes
 app.use((req, res) => {

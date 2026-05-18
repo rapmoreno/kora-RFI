@@ -15,6 +15,7 @@ export class ChatManager {
     this.ttsManager = null;
     this.emojiManager = null;
     this.linkButtonManager = null;
+    this.bookCoverManager = null;
     this.animationManager = null;
     
     // Avatar dependencies
@@ -25,13 +26,14 @@ export class ChatManager {
   // =====================================================
   // SETUP AND CONFIGURATION
   // =====================================================
-  setDependencies({ 
-    webSocketManager, 
-    uiManager, 
-    idleTimerManager, 
-    ttsManager, 
-    emojiManager, 
+  setDependencies({
+    webSocketManager,
+    uiManager,
+    idleTimerManager,
+    ttsManager,
+    emojiManager,
     linkButtonManager,
+    bookCoverManager,
     head,
     isLoaded,
     animationManager
@@ -42,6 +44,7 @@ export class ChatManager {
     this.ttsManager = ttsManager;
     this.emojiManager = emojiManager;
     this.linkButtonManager = linkButtonManager;
+    this.bookCoverManager = bookCoverManager;
     this.head = head;
     this.isLoaded = isLoaded;
     this.animationManager = animationManager;
@@ -207,6 +210,11 @@ export class ChatManager {
     if (this.linkButtonManager) {
       console.log('🔗 Processing text for link buttons (parallel to TTS)');
       this.linkButtonManager.processTextForLinks(response);
+    }
+
+    // Process text for book covers (parallel to TTS)
+    if (this.bookCoverManager) {
+      this.bookCoverManager.processTextForBooks(response);
     }
   }
   
@@ -376,6 +384,7 @@ export class ChatManager {
     this.emojiManager = null;
     this.head = null;
     this.isLoaded = null;
+    this.bookCoverManager = null;
     this.animationManager = null;
   }
-} 
+}

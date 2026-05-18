@@ -28,7 +28,7 @@ export class OpenRouterAdapter {
     }
 
     this.apiKey = apiKey;
-    this.defaultModel = options.model || 'x-ai/grok-4-fast';
+    this.defaultModel = options.model || 'x-ai/grok-4.3';
     this.defaultMaxTokens = options.maxTokens || 1500;
     this.defaultTemperature = options.temperature ?? 0.7;
     this.timeout = options.timeout || 30000; // 30 seconds
